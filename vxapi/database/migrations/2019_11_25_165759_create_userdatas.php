@@ -16,7 +16,11 @@ class CreateUserdatas extends Migration
         Schema::create('userdatas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('userid');
-            $table->integer('score');
+            $table->string('choose')->nullable();
+            $table->string('mutichoose')->nullable();
+            $table->string('fillblank')->nullable();
+            $table->string('judge')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }
