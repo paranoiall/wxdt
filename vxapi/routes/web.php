@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('question','main@question');
+Route::post('answer','main@answer');
