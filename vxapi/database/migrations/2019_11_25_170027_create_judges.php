@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJudge extends Migration
+class CreateJudges extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateJudge extends Migration
      */
     public function up()
     {
-        Schema::create('judge', function (Blueprint $table) {
+        Schema::create('judges', function (Blueprint $table) {
             $table->increments('id');
             $table->text('question');
             $table->boolean('answer');
@@ -28,6 +28,6 @@ class CreateJudge extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('judge');
+        Schema::dropIfExists('judges');
     }
 }

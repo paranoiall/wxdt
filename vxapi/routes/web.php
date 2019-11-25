@@ -14,5 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('login/{code}','main@login');
 Route::get('question','main@question');
-Route::post('answer','main@answer');
+Route::post('answe/{ticket}','main@answer');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChoose extends Migration
+class CreateMutichooses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateChoose extends Migration
      */
     public function up()
     {
-        Schema::create('choose', function (Blueprint $table) {
+        Schema::create('mutichooses', function (Blueprint $table) {
             $table->increments('id');
             $table->text('question');
             $table->string('options');
@@ -29,6 +29,6 @@ class CreateChoose extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('choose');
+        Schema::dropIfExists('mutichooses');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserdata extends Migration
+class CreateFillblanks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUserdata extends Migration
      */
     public function up()
     {
-        Schema::create('userdata', function (Blueprint $table) {
+        Schema::create('fillblanks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('userid');
-            $table->integer('score');
+            $table->text('question');
+            $table->string('answer');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateUserdata extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userdata');
+        Schema::dropIfExists('fillblanks');
     }
 }

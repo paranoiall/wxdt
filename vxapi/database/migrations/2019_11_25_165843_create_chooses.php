@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFillblank extends Migration
+class CreateChooses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateFillblank extends Migration
      */
     public function up()
     {
-        Schema::create('fillblank', function (Blueprint $table) {
+        Schema::create('chooses', function (Blueprint $table) {
             $table->increments('id');
             $table->text('question');
+            $table->string('options');
             $table->string('answer');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateFillblank extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fillblank');
+        Schema::dropIfExists('chooses');
     }
 }
