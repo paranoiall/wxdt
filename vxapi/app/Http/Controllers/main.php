@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Choose;
-use App\Models\Fillblank;
+use App\Models\FillBlank;
 use App\Models\Judge;
 use App\Models\Mutichoose;
 use App\Models\Userdata;
@@ -22,12 +22,12 @@ class main extends Controller
         return $userid;
     }
 
-    public function question(Choose $choose, Mutichoose $mutichoose, Fillblank $fillblank, Judge $judge, Userdata $userdata, $userid)
+    public function question(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
         $question_number = array(
             'choose' => json_encode($this->question_number()),
             'mutichoose' => json_encode($this->question_number()),
-            'fillblank' => json_encode($this->question_number()),
+            'fillBlank' => json_encode($this->question_number()),
             'judge' => json_encode($this->question_number())
         );
         $userdata->where('userid', $userid)->update($question_number);
@@ -54,15 +54,15 @@ class main extends Controller
         return json_encode($data);
     }
 
-    public function answer(Choose $choose, Mutichoose $mutichoose, Fillblank $fillblank, Judge $judge, Userdata $userdata, $userid)
+    public function answer(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
-//        $answer['choose'] = $_POST['choose'];
-//        $answer['mutichoose'] = $_POST['mutichoose'];
-//        $answer['fillblank'] = $_POST['fillblank'];
-//        $answer['judge'] = $_POST['judge'];
+        $answer['choose'] = $_POST['choose'];
+        $answer['mutichoose'] = $_POST['mutichoose'];
+        $answer['fillBlank'] = $_POST['fillBlank'];
+        $answer['judge'] = $_POST['judge'];
 //        dump($answer);
         $question_number = $userdata
-            ->select('choose', 'mutichoose', 'fillblank', 'judge')
+            ->select('choose', 'mutichoose', 'fillBlank', 'judge')
             ->where('userid', $userid)
             ->get()
             ->toArray()[0];
@@ -78,28 +78,41 @@ class main extends Controller
                     ->toArray()[0]['answer'];
             }
         }
-
+//        dump($question_answer);
         $score_std = array('choose' => 1,
             'mutichoose' => 2,
-            'fillblank' => 3,
+            'fillBlank' => 3,
             'judge' => 1
-        );
-        $score = 0;
+        );//各种题得分
+        $score_miss = 1;//多选题漏选得分
+
+        $result['score'] = 0;
         foreach ($question_answer as $key => $value) {
             foreach ($value as $q_number => $q_answer) {
                 if ($key == 'mutichoose') {
                     $q_answer = json_decode($q_answer);
-                    //多选比较答案
-                } else {
-//                    if($value == $answer[$key][$q_number])
-                        $score += $score_std[$key];
+                    if ($q_answer == $answer['mutichoose'][$q_number]) {
+                        $result['score'] += $score_std['mutichoose'];
+                        $result['mutichoose'][$q_number] = 1;
+                    } else if (!array_diff($answer['mutichoose'][$q_number], $q_answer)) {
+                        $result['score'] += $score_miss;
+                        $result['mutichoose'][$q_number] = -1;
+                    }
+                } else if ($value == $answer[$key][$q_number]) {
+                    $result['score'] += $score_std[$key];
+                    $result[$key][$q_number] = 0;
                 }
             }
         }
-        dump($question_answer);
+        $result = json_encode($result);
+        $userdata->where('userid', $userid)->update(array(
+            'answer' => json_encode($answer),
+            'result' => $result
+        ));
+        return $result;
     }
 
-    private function question_number($num = 2, $up = 5, $down = 1)
+    private function question_number($num = 2, $up = 5, $down = 1)//默认随机题号参数
     {
         $source = array();
         for ($i = $down; $i <= $up; $i++)

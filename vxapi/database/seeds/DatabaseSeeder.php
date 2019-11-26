@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(allseed::class);
+        $this->call(choose_seeder::class);
+        $this->call(mutichoose_seeder::class);
+        $this->call(fillBlank_seeder::class);
+        $this->call(judge_seeder::class);
     }
 }

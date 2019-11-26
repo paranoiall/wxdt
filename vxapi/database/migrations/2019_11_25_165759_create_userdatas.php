@@ -20,7 +20,8 @@ class CreateUserdatas extends Migration
             $table->string('mutichoose')->nullable();
             $table->string('fillblank')->nullable();
             $table->string('judge')->nullable();
-            $table->integer('score')->nullable();
+            $table->text('answer')->nullable();
+            $table->text('result')->nullable();
             $table->timestamps();
         });
     }

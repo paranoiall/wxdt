@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Fillblank extends Model
+class FillBlank extends Model
 {
     protected $guarded = [];
 }
