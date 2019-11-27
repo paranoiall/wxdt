@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Larvue</title>
 </head>
 <body>
 <div id="app"></div>
