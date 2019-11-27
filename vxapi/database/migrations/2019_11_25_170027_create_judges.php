@@ -16,7 +16,8 @@ class CreateJudges extends Migration
         Schema::create('judges', function (Blueprint $table) {
             $table->increments('id');
             $table->text('question');
-            $table->boolean('answer');
+            $table->string('options');
+            $table->integer('answer');
             $table->timestamps();
         });
     }

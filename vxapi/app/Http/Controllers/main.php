@@ -12,13 +12,13 @@ use Schema;
 
 class main extends Controller
 {
-    public function login(Userdata $userdata)
+    public function login(Userdata $userdata, $openid)
     {
         $appid = 'wxc20c84c652cf7a61';
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
-        $code = $_POST['code'];
-        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
-        $openid = $this->curl($url);
+//        $code = $_POST['code'];
+//        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
+//        $openid = $this->curl($url);
         $data = [
             'userid' => $openid
         ];
@@ -99,15 +99,15 @@ class main extends Controller
                     $q_answer = json_decode($q_answer);
                     if ($q_answer == $answer['mutichoose'][$q_number]) {
                         $result['score'] += $score_std['mutichoose'];
-                        $result['mutichoose'][$q_number] = 1;
+                        $result['mutichoose'][$q_number] = true;
                     } else if (!array_diff($answer['mutichoose'][$q_number], $q_answer)) {
                         $result['score'] += $score_miss;
-                        $result['mutichoose'][$q_number] = -1;
+                        $result['mutichoose'][$q_number] = false;
                     }
                 } else if ($value == $answer[$key][$q_number]) {
                     $result['score'] += $score_std[$key];
-                    $result[$key][$q_number] = 1;
-                } else $result[$key][$q_number] = 0;
+                    $result[$key][$q_number] = true;
+                } else $result[$key][$q_number] = false;
             }
         }
         $result = json_encode($result);
@@ -116,14 +116,6 @@ class main extends Controller
             'result' => $result
         ));
         return $result;
-    }
-
-    private function question_number($num = 2, $up = 5, $down = 1)//默认随机题号参数
-    {
-        $source = array();
-        for ($i = $down; $i <= $up; $i++)
-            $source[$i] = null;
-        return array_rand($source, $num);
     }
 
     public function curl($url) {
@@ -142,5 +134,13 @@ class main extends Controller
         curl_close($curl);
         $result = json_decode($result,true);
         return $result['openid'];
+    }
+
+    private function question_number($num = 2, $up = 5, $down = 1)//默认随机题号参数
+    {
+        $source = array();
+        for ($i = $down; $i <= $up; $i++)
+            $source[$i] = null;
+        return array_rand($source, $num);
     }
 }
