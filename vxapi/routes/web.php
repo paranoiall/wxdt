@@ -16,4 +16,4 @@ Route::get('/', function () {
 });
 Route::get('login','main@login');
 Route::get('question/{userid}','main@question');
-Route::get('answer/{userid}','main@answer');
+Route::post('answer/{userid}','main@answer');

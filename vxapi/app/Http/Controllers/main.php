@@ -14,16 +14,17 @@ class main extends Controller
 {
     public function login(Userdata $userdata)
     {
-        $appid = '';
-        $appsecret = '';
+        $appid = 'wxc20c84c652cf7a61';
+        $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
         $code = $_POST['code'];
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
         $openid = $this->curl($url);
         $data = [
             'userid' => $openid
         ];
-        $userdata->create($data);
-        return $userid;
+        if($openid)
+            $userdata->create($data);
+        return $openid;
     }
 
     public function question(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
@@ -65,7 +66,7 @@ class main extends Controller
         $answer['mutichoose'] = $_POST['mutichoose'];
         $answer['fillBlank'] = $_POST['fillBlank'];
         $answer['judge'] = $_POST['judge'];
-//        dump($answer);
+
         $question_number = $userdata
             ->select('choose', 'mutichoose', 'fillBlank', 'judge')
             ->where('userid', $userid)
