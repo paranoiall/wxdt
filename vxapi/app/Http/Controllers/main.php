@@ -12,14 +12,19 @@ use Schema;
 
 class main extends Controller
 {
-    public function login(Userdata $userdata, $code)
+    public function login(Userdata $userdata)
     {
-        $userid = $code;
+        $appid = 'wxc20c84c652cf7a61';
+        $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
+        $code = $_POST['code'];
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
+        $openid = $this->curl($url);
         $data = [
-            'userid' => $userid
+            'userid' => $openid
         ];
-        $userdata->create($data);
-        return $userid;
+        if($openid)
+            $userdata->create($data);
+        return $openid;
     }
 
     public function question(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
@@ -42,6 +47,7 @@ class main extends Controller
                         ->where('id', $q_id)
                         ->get()
                         ->toArray()[0];
+                    $data[$key][$q_number]['options'] = json_decode($data[$key][$q_number]['options']);
                 } else {
                     $data[$key][$q_number] = $which
                         ->select('question')
@@ -60,7 +66,7 @@ class main extends Controller
         $answer['mutichoose'] = $_POST['mutichoose'];
         $answer['fillBlank'] = $_POST['fillBlank'];
         $answer['judge'] = $_POST['judge'];
-//        dump($answer);
+
         $question_number = $userdata
             ->select('choose', 'mutichoose', 'fillBlank', 'judge')
             ->where('userid', $userid)
@@ -100,8 +106,8 @@ class main extends Controller
                     }
                 } else if ($value == $answer[$key][$q_number]) {
                     $result['score'] += $score_std[$key];
-                    $result[$key][$q_number] = 0;
-                }
+                    $result[$key][$q_number] = 1;
+                } else $result[$key][$q_number] = 0;
             }
         }
         $result = json_encode($result);
@@ -118,5 +124,23 @@ class main extends Controller
         for ($i = $down; $i <= $up; $i++)
             $source[$i] = null;
         return array_rand($source, $num);
+    }
+
+    public function curl($url) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1);
+        curl_setopt($curl, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($curl);
+        if (curl_errno($curl)) {
+//            echo 'Errno'.curl_error($curl);
+            return 0;
+        }
+        curl_close($curl);
+        $result = json_decode($result,true);
+        return $result['openid'];
     }
 }
