@@ -97,7 +97,7 @@ class main extends Controller
                     if ($q_answer == $answer['mutichoose'][$q_number]) {
                         $result['score'] += $score_std['mutichoose'];
                         $result['mutichoose'][$q_number] = true;
-                    } else if (!array_diff($answer['mutichoose'][$q_number]['value'], $q_answer)) {
+                    } else if (!array_diff($answer['mutichoose'][$q_number], $q_answer)) {
                         $result['score'] += $score_miss;
                         $result['mutichoose'][$q_number] = false;
                     }
