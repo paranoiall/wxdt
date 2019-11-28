@@ -62,6 +62,8 @@ class main extends Controller
 
     public function answer(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
+        $userdata->where('userid', $userid)->update(array('answer' => $_POST['answer']));
+
         $answer = json_decode($_POST['answer'], true);
 
         $question_number = $userdata
@@ -94,10 +96,10 @@ class main extends Controller
             foreach ($value as $q_number => $q_answer) {
                 if ($key == 'mutichoose') {
                     $q_answer = json_decode($q_answer);
-                    if ($q_answer == $answer['mutichoose'][$q_number]) {
+                    if ($q_answer == $answer['mutichoose'][$q_number]['value']) {
                         $result['score'] += $score_std['mutichoose'];
                         $result['mutichoose'][$q_number] = true;
-                    } else if (!array_diff($answer['mutichoose'][$q_number], $q_answer)) {
+                    } else if (!array_diff($answer['mutichoose'][$q_number]['value'], $q_answer)) {
                         $result['score'] += $score_miss;
                         $result['mutichoose'][$q_number] = false;
                     }
