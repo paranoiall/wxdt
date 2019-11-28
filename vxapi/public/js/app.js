@@ -35576,12 +35576,12 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
-    path: '/hello',
-    name: '/hello',
-    component: _components_Hello__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }, {
     path: '/',
     name: '/',
+    component: _components_Hello__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    path: '/home',
+    name: '/home',
     component: _components_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 }));
