@@ -62,10 +62,7 @@ class main extends Controller
 
     public function answer(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
-        $answer['choose'] = $_POST['choose'];
-        $answer['mutichoose'] = $_POST['mutichoose'];
-        $answer['fillBlank'] = $_POST['fillBlank'];
-        $answer['judge'] = $_POST['judge'];
+        $answer = json_decode($_POST['answer'], true);
 
         $question_number = $userdata
             ->select('choose', 'mutichoose', 'fillBlank', 'judge')
