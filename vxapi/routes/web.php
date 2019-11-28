@@ -20,6 +20,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::get('wxlogin/{openid}','main@login');
+Route::post('wxlogin','main@login');
 Route::get('question/{userid}','main@question');
 Route::post('answer/{userid}','main@answer');
