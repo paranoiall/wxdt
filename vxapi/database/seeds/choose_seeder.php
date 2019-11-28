@@ -15,27 +15,52 @@ class choose_seeder extends Seeder
             [
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
                     'answer' => 'a'
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
                     'answer' => 'a'
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
                     'answer' => 'a'
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
                     'answer' => 'a'
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
                     'answer' => 'a'
                 ]
             ]

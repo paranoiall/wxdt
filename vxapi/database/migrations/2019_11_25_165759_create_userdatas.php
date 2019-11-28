@@ -23,6 +23,7 @@ class CreateUserdatas extends Migration
             $table->text('answer')->nullable();
             $table->text('result')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

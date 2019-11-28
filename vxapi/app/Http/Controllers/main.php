@@ -12,18 +12,17 @@ use Schema;
 
 class main extends Controller
 {
-    public function login(Userdata $userdata)
+    public function login()
     {
         $appid = 'wxc20c84c652cf7a61';
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
         $code = $_POST['code'];
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
         $openid = $this->curl($url);
-        $data = [
-            'userid' => $openid
-        ];
-        if($openid)
-            $userdata->create($data);
+        if ($openid) {
+            Userdata::where('userid', $openid)->delete();
+            Userdata::create(array('userid' => $openid));
+        }
         return $openid;
     }
 
@@ -37,19 +36,19 @@ class main extends Controller
         );
         $userdata->where('userid', $userid)->update($question_number);
 
-        foreach ($question_number as $key => $value) {
+        foreach ($question_number as $kind => $value) {
             $value = json_decode($value, true);
-            eval('$which=$' . $key . ';');
+            eval('$which=$' . $kind . ';');
             foreach ($value as $q_number => $q_id) {
-                if (Schema::hasColumn($key . 's', 'options')) {
-                    $data[$key][$q_number] = $which
+                if (Schema::hasColumn($kind . 's', 'options')) {
+                    $data[$kind][$q_number] = $which
                         ->select('question', 'options')
                         ->where('id', $q_id)
                         ->get()
                         ->toArray()[0];
-                    $data[$key][$q_number]['options'] = json_decode($data[$key][$q_number]['options']);
+                    $data[$kind][$q_number]['options'] = json_decode($data[$kind][$q_number]['options']);
                 } else {
-                    $data[$key][$q_number] = $which
+                    $data[$kind][$q_number] = $which
                         ->select('question')
                         ->where('id', $q_id)
                         ->get()
@@ -103,7 +102,7 @@ class main extends Controller
                         $result['score'] += $score_miss;
                         $result['mutichoose'][$q_number] = false;
                     }
-                } else if ($value == $answer[$key][$q_number]) {
+                } else if ($value == $answer[$key][$q_number]['value']) {
                     $result['score'] += $score_std[$key];
                     $result[$key][$q_number] = true;
                 } else $result[$key][$q_number] = false;
@@ -117,7 +116,8 @@ class main extends Controller
         return $result;
     }
 
-    public function curl($url) {
+    public function curl($url)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
@@ -131,7 +131,7 @@ class main extends Controller
             return 0;
         }
         curl_close($curl);
-        $result = json_decode($result,true);
+        $result = json_decode($result, true);
         return $result['openid'];
     }
 

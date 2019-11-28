@@ -15,27 +15,42 @@ class judge_seeder extends Seeder
             [
                 [
                     'question' => 'q',
-                    'options' => json_encode(array(0, 1)),
+                    'options' => json_encode(array(
+                        array('key' => '0', 'value' => 'false'),
+                        array('key' => '1', 'value' => 'true')
+                    )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array(0, 1)),
+                    'options' => json_encode(array(
+                        array('key' => '0', 'value' => 'false'),
+                        array('key' => '1', 'value' => 'true')
+                    )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array(0, 1)),
+                    'options' => json_encode(array(
+                        array('key' => '0', 'value' => 'false'),
+                        array('key' => '1', 'value' => 'true')
+                    )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array(0, 1)),
+                    'options' => json_encode(array(
+                        array('key' => '0', 'value' => 'false'),
+                        array('key' => '1', 'value' => 'true')
+                    )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array(0, 1)),
+                    'options' => json_encode(array(
+                        array('key' => '0', 'value' => 'false'),
+                        array('key' => '1', 'value' => 'true')
+                    )),
                     'answer' => 1,
                 ]
             ]

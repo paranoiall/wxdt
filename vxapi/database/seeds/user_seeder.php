@@ -14,9 +14,9 @@ class user_seeder extends Seeder
         DB::table('chooses')->insert(
             [
                 [
-                'username' => 'admin',
-                'name' => 'root',
-                'password' => 'admin'
+                    'username' => 'admin',
+                    'name' => 'root',
+                    'password' => 'admin'
                 ]
             ]
         );

@@ -15,28 +15,53 @@ class mutichoose_seeder extends Seeder
             [
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
-                    'answer' => json_encode(array('a','b'))
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
+                    'answer' => json_encode(array('a', 'b'))
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
-                    'answer' => json_encode(array('a','b'))
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
+                    'answer' => json_encode(array('a', 'b'))
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
-                    'answer' => json_encode(array('a','b'))
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
+                    'answer' => json_encode(array('a', 'b'))
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
-                    'answer' => json_encode(array('a','b'))
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
+                    'answer' => json_encode(array('a', 'b'))
                 ],
                 [
                     'question' => 'q',
-                    'options' => json_encode(array('a' => 'qa', 'b' => 'qb', 'c' => 'qc', 'd' => 'qd')),
-                    'answer' => json_encode(array('a','b'))
+                    'options' => json_encode(array(
+                        array('key' => 'a', 'value' => 'qa'),
+                        array('key' => 'b', 'value' => 'qb'),
+                        array('key' => 'c', 'value' => 'qc'),
+                        array('key' => 'd', 'value' => 'qd')
+                    )),
+                    'answer' => json_encode(array('a', 'b'))
                 ]
             ]
         );
