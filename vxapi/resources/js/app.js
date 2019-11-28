@@ -28,8 +28,8 @@ import router from "./routes/index.js"
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// el: '#app',
+//     router,
 const app = new Vue({
-    el: '#app',
-    router,
     render: h => h(App)
 });

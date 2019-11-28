@@ -14,6 +14,12 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('login/{openid}','main@login');
+
+Auth::routes();
+//['register' => false]
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
+Route::get('wxlogin/{openid}','main@login');
 Route::get('question/{userid}','main@question');
 Route::post('answer/{userid}','main@answer');
