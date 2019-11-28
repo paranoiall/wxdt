@@ -16,7 +16,8 @@ class main extends Controller
     {
         $appid = 'wxc20c84c652cf7a61';
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
-        $code = $_POST['code'];
+        $code = json_decode($GLOBALS['HTTP_RAW_POST_DATA'])->code;
+//        $code = $_POST['code'];
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
         $openid = $this->curl($url);
         $data = [
