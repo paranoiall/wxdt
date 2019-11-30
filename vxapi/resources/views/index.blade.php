@@ -5,7 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-<div id="app"></div>
-<script src="{{ mix('/js/components/app.js') }}"></script>
+<div id="my_app"></div>
+<script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

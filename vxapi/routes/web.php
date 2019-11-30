@@ -11,17 +11,8 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('index');
-//});
-
-//Auth::routes();
-//['register' => false]
-
-//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-//Route::get('/', function () {
-//    return view('index');
-//})->middleware('auth');
+Auth::routes(['register' => false]);
+Route::get('/', 'HomeController@index');
 
 Route::post('wxlogin', 'main@login');
 Route::get('question/{userid}', 'main@question');
