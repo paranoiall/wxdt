@@ -17,7 +17,7 @@ class main extends Controller
         $appid = 'wxc20c84c652cf7a61';
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
         $code = $_POST['code'];
-        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$appsecret.'&js_code='.$code.'&grant_type=authorization_code';
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' . $appid . '&secret=' . $appsecret . '&js_code=' . $code . '&grant_type=authorization_code';
         $openid = $this->curl($url);
         if ($openid) {
             Userdata::where('userid', $openid)->delete();
@@ -90,20 +90,21 @@ class main extends Controller
         $score_miss = 1;//多选题漏选得分
 
         $result['score'] = 0;
-        foreach ($answer as $key=>$item) {
+        foreach ($answer as $key => $item) {
             foreach ($item as $value) {
-                $index = $value['index']-1;
+                $index = $value['index'] - 1;
                 $q_answer = $question_answer[$key][$index];
                 if ($key == 'mutichoose') {
                     $q_answer = json_decode($q_answer, true);
-                    if($q_answer == $value['value']) {
-                        $result['score'] += $score_std['mutichoose'];
-                        $result['mutichoose'][$index] = true;
-                    } else if (!array_diff($q_answer, $value['value'])) {
+                    if (!array_diff($value['value'], $q_answer)) {
                         $result['score'] += $score_miss;
                         $result['mutichoose'][$index] = false;
-                    }
-                } else if($q_answer == $value['value']) {
+                        if (!array_diff($q_answer, $value['value'])) {
+                            $result['score'] += ($score_std['mutichoose'] - $score_miss);
+                            $result['mutichoose'][$index] = true;
+                        }
+                    } else $result['mutichoose'][$index] = false;
+                } else if ($q_answer == $value['value']) {
                     $result['score'] += $score_std[$key];
                     $result[$key][$index] = true;
                 } else $result[$key][$index] = false;
