@@ -62,7 +62,6 @@ class main extends Controller
     public function answer(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
         $userdata->where('userid', $userid)->update(array('answer' => $_POST['answer']));
-
         $answer = json_decode($_POST['answer'], true);
 
         $question_number = $userdata
@@ -91,23 +90,25 @@ class main extends Controller
         $score_miss = 1;//多选题漏选得分
 
         $result['score'] = 0;
-        foreach ($question_answer as $key => $value) {
-            foreach ($value as $q_number => $q_answer) {
+        foreach ($answer as $key=>$item) {
+            foreach ($item as $value) {
+                $q_answer = $question_answer[$key][$value['index']];
                 if ($key == 'mutichoose') {
-                    $q_answer = json_decode($q_answer);
-                    if ($q_answer == $answer['mutichoose'][$q_number]['value']) {
+                    $q_answer = json_decode($q_answer, true);
+                    if($q_answer == $value['value']) {
                         $result['score'] += $score_std['mutichoose'];
-                        $result['mutichoose'][$q_number] = true;
-                    } else if (!array_diff($answer['mutichoose'][$q_number]['value'], $q_answer)) {
+                        $result['mutichoose'][$value['index']] = true;
+                    } else if (!array_diff($q_answer, $value['value'])) {
                         $result['score'] += $score_miss;
-                        $result['mutichoose'][$q_number] = false;
+                        $result['mutichoose'][$value['index']] = false;
                     }
-                } else if ($value == $answer[$key][$q_number]['value']) {
+                } else if($q_answer == $value['value']) {
                     $result['score'] += $score_std[$key];
-                    $result[$key][$q_number] = true;
-                } else $result[$key][$q_number] = false;
+                    $result[$key][$value['index']] = true;
+                } else $result[$key][$value['index']] = false;
             }
         }
+
         $result = json_encode($result);
         $userdata->where('userid', $userid)->update(array(
             'answer' => json_encode($answer),

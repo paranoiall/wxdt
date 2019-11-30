@@ -11,14 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+//Route::get('/', function () {
+//    return view('index');
+//});
 
-Auth::routes();
+//Auth::routes();
 //['register' => false]
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//Route::get('/', function () {
+//    return view('index');
+//})->middleware('auth');
 
 Route::post('wxlogin', 'main@login');
 Route::get('question/{userid}', 'main@question');

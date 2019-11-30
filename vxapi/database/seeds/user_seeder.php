@@ -11,12 +11,12 @@ class user_seeder extends Seeder
      */
     public function run()
     {
-        DB::table('chooses')->insert(
+        DB::table('users')->insert(
             [
                 [
                     'username' => 'admin',
                     'name' => 'root',
-                    'password' => 'admin'
+                    'password' =>  Hash::make('admin')
                 ]
             ]
         );
