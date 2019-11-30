@@ -92,20 +92,21 @@ class main extends Controller
         $result['score'] = 0;
         foreach ($answer as $key=>$item) {
             foreach ($item as $value) {
-                $q_answer = $question_answer[$key][$value['index']];
+                $index = $value['index']-1;
+                $q_answer = $question_answer[$key][$index];
                 if ($key == 'mutichoose') {
                     $q_answer = json_decode($q_answer, true);
                     if($q_answer == $value['value']) {
                         $result['score'] += $score_std['mutichoose'];
-                        $result['mutichoose'][$value['index']] = true;
+                        $result['mutichoose'][$index] = true;
                     } else if (!array_diff($q_answer, $value['value'])) {
                         $result['score'] += $score_miss;
-                        $result['mutichoose'][$value['index']] = false;
+                        $result['mutichoose'][$index] = false;
                     }
                 } else if($q_answer == $value['value']) {
                     $result['score'] += $score_std[$key];
-                    $result[$key][$value['index']] = true;
-                } else $result[$key][$value['index']] = false;
+                    $result[$key][$index] = true;
+                } else $result[$key][$index] = false;
             }
         }
 
