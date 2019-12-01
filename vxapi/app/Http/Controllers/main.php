@@ -93,7 +93,7 @@ class main extends Controller
         foreach ($answer as $key => $item) {
             foreach ($item as $value) {
                 if($value['index']) {
-                    $index = $value['index'];
+                    $index = $value['index']-1;
                     $q_answer = $question_answer[$key][$index];
                     if ($key == 'mutichoose') {
                         $q_answer = json_decode($q_answer, true);
