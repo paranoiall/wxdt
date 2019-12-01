@@ -92,22 +92,24 @@ class main extends Controller
         $result['score'] = 0;
         foreach ($answer as $key => $item) {
             foreach ($item as $value) {
-                $index = $value['index'] - 1;
-                $q_answer = $question_answer[$key][$index];
-                if ($key == 'mutichoose') {
-                    $q_answer = json_decode($q_answer, true);
-                    if (!array_diff($value['value'], $q_answer)) {
-                        $result['score'] += $score_miss;
-                        $result['mutichoose'][$index] = false;
-                        if (!array_diff($q_answer, $value['value'])) {
-                            $result['score'] += ($score_std['mutichoose'] - $score_miss);
-                            $result['mutichoose'][$index] = true;
-                        }
-                    } else $result['mutichoose'][$index] = false;
-                } else if ($q_answer == $value['value']) {
-                    $result['score'] += $score_std[$key];
-                    $result[$key][$index] = true;
-                } else $result[$key][$index] = false;
+                if($value['index']) {
+                    $index = $value['index'];
+                    $q_answer = $question_answer[$key][$index];
+                    if ($key == 'mutichoose') {
+                        $q_answer = json_decode($q_answer, true);
+                        if (!array_diff($value['value'], $q_answer)) {
+                            $result['score'] += $score_miss;
+                            $result['mutichoose'][$index] = false;
+                            if (!array_diff($q_answer, $value['value'])) {
+                                $result['score'] += ($score_std['mutichoose'] - $score_miss);
+                                $result['mutichoose'][$index] = true;
+                            }
+                        } else $result['mutichoose'][$index] = false;
+                    } else if ($q_answer == $value['value']) {
+                        $result['score'] += $score_std[$key];
+                        $result[$key][$index] = true;
+                    } else $result[$key][$index] = false;
+                }
             }
         }
 
