@@ -149,7 +149,7 @@
     export default {
         data() {
             return {
-                url:'http://www.dutbit.com:8000/control',
+                url:'http://www.dutbit.com:8080/control',
                 activeName: 'choose',
                 tableData: [],
                 drawer: false,
