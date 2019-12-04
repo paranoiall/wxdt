@@ -3498,6 +3498,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      defaultindex: this.$route.path,
       isCollapse: false
     };
   }
@@ -3514,6 +3515,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -3552,11 +3557,254 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      activeName: 'choose'
+      url: 'http://www.dutbit.com:8000/control',
+      activeName: 'choose',
+      tableData: [],
+      drawer: false,
+      direction: "ttb",
+      questionNum: 0,
+      newQuestion: {
+        options: ["错", "对"]
+      },
+      row: [],
+      rules: {
+        question: [{
+          required: true,
+          message: '请输入题目',
+          trigger: 'blur'
+        }],
+        answer: [{
+          required: true,
+          message: '请输入答案',
+          trigger: 'blur'
+        }]
+      }
     };
+  },
+  mounted: function mounted() {
+    this.handleClick();
+  },
+  methods: {
+    handleClick: function handleClick() {
+      var self = this;
+      var url = this.url + this.activeName;
+      axios.get(url).then(function (response) {
+        self.tableData = response.data;
+        console.log(self.tableData);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    handleClose: function handleClose(done) {
+      var self = this;
+      this.$confirm('确认关闭？').then(function (_) {
+        self.questionNum = 0;
+        self.newQuestion = {
+          options: {}
+        };
+        done();
+      });
+    },
+    buttonClick: function buttonClick(number) {
+      this.questionNum = number;
+    },
+    insertRow: function insertRow(formName) {
+      var _this = this;
+
+      var self = this;
+      var url = this.url + this.activeName;
+      this.$refs[formName].validate(function (valid) {
+        if (valid) {
+          console.log(_this.newQuestion);
+          axios.post(url, JSON.stringify(_this.newQuestion)).then(function (response) {
+            console.log(response.data);
+            alert('添加成功！');
+            window.location.reload();
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
+      });
+    },
+    updateRow: function updateRow(index, row) {
+      this.$set(row, 'isUpdate', true);
+    },
+    saveRow: function saveRow(index, row) {
+      var url = this.url + this.activeName;
+      var data_m = Object.assign({}, this.tableData[index]);
+      delete data_m.isUpdate;
+      var senddata = {
+        options: {}
+      };
+      senddata.id = data_m.id;
+      delete data_m.id;
+      senddata.question = data_m.question;
+      delete data_m.question;
+      senddata.answer = data_m.answer;
+      delete data_m.answer;
+
+      for (var i in data_m) {
+        senddata.options[i] = data_m[i];
+      }
+
+      axios.put(url, JSON.stringify(senddata)).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      this.$set(row, 'isUpdate', false);
+    },
+    deleteRow: function deleteRow(index, row, tabledata) {
+      var _this2 = this;
+
+      var url = this.url + this.activeName;
+      this.$confirm('确认删除？').then(function (_) {
+        _this2.$set(row, 'isUpdate', false);
+
+        axios["delete"](url, {
+          data: row.id
+        }).then(function (response) {
+          console.log(response.data);
+          alert('删除成功！');
+          tabledata.splice(index, 1);
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      })["catch"](function (_) {
+        return;
+      });
+    }
   }
 });
 
@@ -9985,7 +10233,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.el-menu-vertical-demo:not(.el-menu--collapse) {\n    width: 150px;\n    min-height: 300px;\n}\n", ""]);
+exports.push([module.i, "\n.el-menu-vertical-demo:not(.el-menu--collapse) {\n    width: 70%;\n    min-height: 100%;\n}\n.aside {\n    width: 20% !important;\n}\n", ""]);
 
 // exports
 
@@ -10004,7 +10252,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tab{\n    width: 600px;\n}\n", ""]);
+exports.push([module.i, "\n.header {\n    margin: 0px 20% 0px 10% !important;\n}\n.main {\n    margin: 0px 5% 0px 0% !important;\n}\n.row {\n    margin: 0 2% !important;\n    height: 90%;\n}\n.row-up {\n    margin: 0 2% !important;\n    height: 55%;\n}\n.el-form {\n    width: 100% !important;\n}\n.button {\n    width: 50% !important;\n}\n", ""]);
 
 // exports
 
@@ -99949,8 +100197,8 @@ var render = function() {
     "el-container",
     [
       _c(
-        "el-container",
-        { attrs: { direction: "vertical" } },
+        "el-aside",
+        { staticClass: "aside" },
         [
           _c(
             "el-radio-group",
@@ -99981,13 +100229,13 @@ var render = function() {
             {
               staticClass: "el-menu-vertical-demo",
               attrs: {
-                "default-active": "question",
+                "default-active": _vm.defaultindex,
                 collapse: _vm.isCollapse,
                 router: ""
               }
             },
             [
-              _c("el-menu-item", { attrs: { index: "question" } }, [
+              _c("el-menu-item", { attrs: { index: "/question" } }, [
                 _c("i", { staticClass: "el-icon-document" }),
                 _vm._v(" "),
                 _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -99995,7 +100243,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "result" } }, [
+              _c("el-menu-item", { attrs: { index: "/result" } }, [
                 _c("i", { staticClass: "el-icon-menu" }),
                 _vm._v(" "),
                 _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -100003,7 +100251,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "setting" } }, [
+              _c("el-menu-item", { attrs: { index: "/setting" } }, [
                 _c("i", { staticClass: "el-icon-setting" }),
                 _vm._v(" "),
                 _c("span", { attrs: { slot: "title" }, slot: "title" }, [
@@ -100017,7 +100265,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("router-view")
+      _c("el-main", [_c("router-view")], 1)
     ],
     1
   )
@@ -100044,7 +100292,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("asdf")])
+  return _c(
+    "el-container",
+    [_c("el-main", [_c("h1", [_vm._v("welcome to vxdt!")])])],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -100072,50 +100324,700 @@ var render = function() {
     "el-container",
     [
       _c(
-        "el-tabs",
-        {
-          attrs: { stretch: "true" },
-          model: {
-            value: _vm.activeName,
-            callback: function($$v) {
-              _vm.activeName = $$v
-            },
-            expression: "activeName"
-          }
-        },
+        "el-header",
+        { staticClass: "header" },
         [
           _c(
-            "el-tab-pane",
-            { staticClass: "tab", attrs: { label: "选择题", name: "choose" } },
-            [_vm._v("\n            choose\n        ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "el-tab-pane",
+            "el-tabs",
             {
-              staticClass: "tab",
-              attrs: { label: "多选题", name: "mutichoose" }
+              attrs: { "tab-position": "top", stretch: "" },
+              on: { "tab-click": _vm.handleClick },
+              model: {
+                value: _vm.activeName,
+                callback: function($$v) {
+                  _vm.activeName = $$v
+                },
+                expression: "activeName"
+              }
             },
-            [_vm._v("\n            muti\n        ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "el-tab-pane",
-            { staticClass: "tab", attrs: { label: "判断题", name: "judge" } },
-            [_vm._v("\n            judge\n        ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "el-tab-pane",
-            {
-              staticClass: "tab",
-              attrs: { label: "填空题", name: "fillBlank" }
-            },
-            [_vm._v("\n            fillblank\n        ")]
+            [
+              _c("el-tab-pane", { attrs: { label: "选择题", name: "choose" } }),
+              _vm._v(" "),
+              _c("el-tab-pane", {
+                attrs: { label: "多选题", name: "mutichoose" }
+              }),
+              _vm._v(" "),
+              _c("el-tab-pane", { attrs: { label: "判断题", name: "judge" } }),
+              _vm._v(" "),
+              _c("el-tab-pane", {
+                attrs: { label: "填空题", name: "fillBlank" }
+              })
+            ],
+            1
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "el-main",
+        { staticClass: "main" },
+        [
+          _c(
+            "el-table",
+            {
+              attrs: {
+                data: _vm.tableData,
+                "max-height": "300px",
+                stripe: "",
+                border: ""
+              }
+            },
+            [
+              _c("el-table-column", {
+                attrs: { fixed: "", prop: "id", label: "题号", width: "70%" }
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { prop: "question", label: "题目", width: "400%" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        scope.row.isUpdate
+                          ? _c(
+                              "span",
+                              [
+                                _c("el-input", {
+                                  attrs: { placeholder: "请输入内容" },
+                                  model: {
+                                    value: scope.row.question,
+                                    callback: function($$v) {
+                                      _vm.$set(scope.row, "question", $$v)
+                                    },
+                                    expression: "scope.row.question"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _c("span", [_vm._v(_vm._s(scope.row.question))])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _vm.activeName == "choose" || _vm.activeName == "mutichoose"
+                ? _c("el-table-column", {
+                    attrs: { prop: "a", label: "A选项", width: "200%" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              scope.row.isUpdate
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c("el-input", {
+                                        attrs: { placeholder: "请输入内容" },
+                                        model: {
+                                          value: scope.row.a,
+                                          callback: function($$v) {
+                                            _vm.$set(scope.row, "a", $$v)
+                                          },
+                                          expression: "scope.row.a"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _c("span", [_vm._v(_vm._s(scope.row.a))])
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      1120599210
+                    )
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeName == "choose" || _vm.activeName == "mutichoose"
+                ? _c("el-table-column", {
+                    attrs: { prop: "b", label: "B选项", width: "200%" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              scope.row.isUpdate
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c("el-input", {
+                                        attrs: { placeholder: "请输入内容" },
+                                        model: {
+                                          value: scope.row.b,
+                                          callback: function($$v) {
+                                            _vm.$set(scope.row, "b", $$v)
+                                          },
+                                          expression: "scope.row.b"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _c("span", [_vm._v(_vm._s(scope.row.b))])
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      3069946986
+                    )
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeName == "choose" || _vm.activeName == "mutichoose"
+                ? _c("el-table-column", {
+                    attrs: { prop: "c", label: "C选项", width: "200%" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              scope.row.isUpdate
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c("el-input", {
+                                        attrs: { placeholder: "请输入内容" },
+                                        model: {
+                                          value: scope.row.c,
+                                          callback: function($$v) {
+                                            _vm.$set(scope.row, "c", $$v)
+                                          },
+                                          expression: "scope.row.c"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _c("span", [_vm._v(_vm._s(scope.row.c))])
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      4027880618
+                    )
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeName == "choose" || _vm.activeName == "mutichoose"
+                ? _c("el-table-column", {
+                    attrs: { prop: "d", label: "D选项", width: "200%" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              scope.row.isUpdate
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c("el-input", {
+                                        attrs: { placeholder: "请输入内容" },
+                                        model: {
+                                          value: scope.row.d,
+                                          callback: function($$v) {
+                                            _vm.$set(scope.row, "d", $$v)
+                                          },
+                                          expression: "scope.row.d"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _c("span", [_vm._v(_vm._s(scope.row.d))])
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      1278063466
+                    )
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { prop: "answer", label: "答案", width: "200%" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        scope.row.isUpdate
+                          ? _c(
+                              "span",
+                              [
+                                _c("el-input", {
+                                  attrs: { placeholder: "请输入内容" },
+                                  model: {
+                                    value: scope.row.answer,
+                                    callback: function($$v) {
+                                      _vm.$set(scope.row, "answer", $$v)
+                                    },
+                                    expression: "scope.row.answer"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _c("span", [_vm._v(_vm._s(scope.row.answer))])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { fixed: "right", label: "操作", width: "110%" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        scope.row.isUpdate
+                          ? _c(
+                              "span",
+                              [
+                                _c(
+                                  "el-button",
+                                  {
+                                    attrs: { type: "text" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.saveRow(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("保存")]
+                                )
+                              ],
+                              1
+                            )
+                          : _c(
+                              "span",
+                              [
+                                _c(
+                                  "el-button",
+                                  {
+                                    attrs: { type: "text" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.updateRow(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("修改")]
+                                )
+                              ],
+                              1
+                            ),
+                        _vm._v(" "),
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "text" },
+                            nativeOn: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.deleteRow(
+                                  scope.$index,
+                                  scope.row,
+                                  _vm.tableData
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        移除\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-footer",
+        [
+          _c(
+            "el-row",
+            [
+              _c(
+                "el-col",
+                { attrs: { offset: 19, span: 2 } },
+                [
+                  _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary", round: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.drawer = true
+                        }
+                      }
+                    },
+                    [_vm._v("新增题目")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.questionNum == 0
+        ? _c(
+            "el-drawer",
+            {
+              attrs: {
+                visible: _vm.drawer,
+                direction: _vm.direction,
+                "before-close": _vm.handleClose,
+                "with-header": false
+              },
+              on: {
+                "update:visible": function($event) {
+                  _vm.drawer = $event
+                }
+              }
+            },
+            [
+              _c(
+                "el-row",
+                {
+                  staticClass: "row",
+                  attrs: { type: "flex", align: "middle" }
+                },
+                [
+                  _c("el-col", { attrs: { offset: 6, span: 8 } }, [
+                    _c(
+                      "div",
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "button",
+                            attrs: { type: "primary" },
+                            on: {
+                              click: function($event) {
+                                return _vm.buttonClick(1)
+                              }
+                            }
+                          },
+                          [_vm._v("单题添加")]
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("el-col", { attrs: { span: 8 } }, [
+                    _c(
+                      "div",
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "button",
+                            attrs: { type: "success", disabled: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.buttonClick(-1)
+                              }
+                            }
+                          },
+                          [_vm._v("批量添加")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.questionNum == 1
+        ? _c(
+            "el-drawer",
+            {
+              attrs: {
+                visible: _vm.drawer,
+                direction: _vm.direction,
+                "before-close": _vm.handleClose,
+                "with-header": false
+              },
+              on: {
+                "update:visible": function($event) {
+                  _vm.drawer = $event
+                }
+              }
+            },
+            [
+              _c(
+                "el-row",
+                {
+                  staticClass: "row-up",
+                  attrs: { type: "flex", align: "bottom", gutter: 5 }
+                },
+                [
+                  _c(
+                    "el-form",
+                    {
+                      ref: "questionForm",
+                      attrs: { model: _vm.newQuestion, rules: _vm.rules }
+                    },
+                    [
+                      _c(
+                        "el-col",
+                        { attrs: { span: 3 } },
+                        [
+                          _c("el-input", {
+                            attrs: { disabled: "" },
+                            model: {
+                              value: _vm.activeName,
+                              callback: function($$v) {
+                                _vm.activeName = $$v
+                              },
+                              expression: "activeName"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-col",
+                        { attrs: { span: 9 } },
+                        [
+                          _c(
+                            "el-form-item",
+                            { attrs: { prop: "question" } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "请输入题目" },
+                                model: {
+                                  value: _vm.newQuestion.question,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion, "question", $$v)
+                                  },
+                                  expression: "newQuestion.question"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.activeName == "choose" ||
+                      _vm.activeName == "mutichoose"
+                        ? _c(
+                            "el-col",
+                            { attrs: { span: 2 } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "A" },
+                                model: {
+                                  value: _vm.newQuestion.options.a,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion.options, "a", $$v)
+                                  },
+                                  expression: "newQuestion.options.a"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activeName == "choose" ||
+                      _vm.activeName == "mutichoose"
+                        ? _c(
+                            "el-col",
+                            { attrs: { span: 2 } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "B" },
+                                model: {
+                                  value: _vm.newQuestion.options.b,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion.options, "b", $$v)
+                                  },
+                                  expression: "newQuestion.options.b"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activeName == "choose" ||
+                      _vm.activeName == "mutichoose"
+                        ? _c(
+                            "el-col",
+                            { attrs: { span: 2 } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "C" },
+                                model: {
+                                  value: _vm.newQuestion.options.c,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion.options, "c", $$v)
+                                  },
+                                  expression: "newQuestion.options.c"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activeName == "choose" ||
+                      _vm.activeName == "mutichoose"
+                        ? _c(
+                            "el-col",
+                            { attrs: { span: 2 } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "D" },
+                                model: {
+                                  value: _vm.newQuestion.options.d,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion.options, "d", $$v)
+                                  },
+                                  expression: "newQuestion.options.d"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "el-col",
+                        { attrs: { span: 4 } },
+                        [
+                          _c(
+                            "el-form-item",
+                            { attrs: { prop: "answer" } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "请输入答案" },
+                                model: {
+                                  value: _vm.newQuestion.answer,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newQuestion, "answer", $$v)
+                                  },
+                                  expression: "newQuestion.answer"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-row",
+                { attrs: { type: "flex" } },
+                [
+                  _c(
+                    "el-col",
+                    { attrs: { offset: 20, span: 3 } },
+                    [
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { type: "primary", round: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.insertRow("questionForm")
+                            }
+                          }
+                        },
+                        [_vm._v("新增题目")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.questionNum == -1
+        ? _c("el-drawer", {
+            attrs: {
+              visible: _vm.drawer,
+              direction: _vm.direction,
+              "before-close": _vm.handleClose,
+              "with-header": false
+            },
+            on: {
+              "update:visible": function($event) {
+                _vm.drawer = $event
+              }
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -115311,15 +116213,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*****************************************!*\
   !*** ./resources/js/components/App.vue ***!
   \*****************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=332fccf4& */ "./resources/js/components/App.vue?vue&type=template&id=332fccf4&");
 /* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/components/App.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/App.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/App.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -115351,7 +116252,7 @@ component.options.__file = "resources/js/components/App.vue"
 /*!******************************************************************!*\
   !*** ./resources/js/components/App.vue?vue&type=script&lang=js& ***!
   \******************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
