@@ -16,40 +16,40 @@ class judge_seeder extends Seeder
                 [
                     'question' => 'q',
                     'options' => json_encode(array(
-                        array('key' => '0', 'value' => 'false'),
-                        array('key' => '1', 'value' => 'true')
+                        array('key' => '0', 'value' => '错'),
+                        array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
                     'options' => json_encode(array(
-                        array('key' => '0', 'value' => 'false'),
-                        array('key' => '1', 'value' => 'true')
+                        array('key' => '0', 'value' => '错'),
+                        array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
                     'options' => json_encode(array(
-                        array('key' => '0', 'value' => 'false'),
-                        array('key' => '1', 'value' => 'true')
+                        array('key' => '0', 'value' => '错'),
+                        array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
                     'options' => json_encode(array(
-                        array('key' => '0', 'value' => 'false'),
-                        array('key' => '1', 'value' => 'true')
+                        array('key' => '0', 'value' => '错'),
+                        array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
                 ],
                 [
                     'question' => 'q',
                     'options' => json_encode(array(
-                        array('key' => '0', 'value' => 'false'),
-                        array('key' => '1', 'value' => 'true')
+                        array('key' => '0', 'value' => '错'),
+                        array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
                 ]

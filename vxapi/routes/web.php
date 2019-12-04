@@ -12,10 +12,10 @@
 */
 
 //Auth::routes(['register' => false]);
-//Route::get('/', 'HomeController@index');
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'HomeController@index');
+//Route::get('/', function () {
+//    return view('index');
+//});
 Route::post('wxlogin', 'main@login');
 Route::get('question/{userid}', 'main@question');
 Route::post('answer/{userid}', 'main@answer');

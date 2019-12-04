@@ -10,11 +10,11 @@
                     <i class="el-icon-document"></i>
                     <span slot="title">更改题目</span>
                 </el-menu-item>
-                <el-menu-item index="/result">
+                <el-menu-item index="/result" disabled>
                     <i class="el-icon-menu"></i>
                     <span slot="title">查看结果</span>
                 </el-menu-item>
-                <el-menu-item index="/setting">
+                <el-menu-item index="/setting" disabled>
                     <i class="el-icon-setting"></i>
                     <span slot="title">设置</span>
                 </el-menu-item>
