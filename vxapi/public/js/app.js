@@ -3688,7 +3688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: 'http://www.dutbit.com:8000/control',
+      url: 'http://www.dutbit.com:8080/control/',
       activeName: 'choose',
       tableData: [],
       drawer: false,
@@ -100243,21 +100243,29 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "/result" } }, [
-                _c("i", { staticClass: "el-icon-menu" }),
-                _vm._v(" "),
-                _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                  _vm._v("查看结果")
-                ])
-              ]),
+              _c(
+                "el-menu-item",
+                { attrs: { index: "/result", disabled: "" } },
+                [
+                  _c("i", { staticClass: "el-icon-menu" }),
+                  _vm._v(" "),
+                  _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                    _vm._v("查看结果")
+                  ])
+                ]
+              ),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "/setting" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                  _vm._v("设置")
-                ])
-              ])
+              _c(
+                "el-menu-item",
+                { attrs: { index: "/setting", disabled: "" } },
+                [
+                  _c("i", { staticClass: "el-icon-setting" }),
+                  _vm._v(" "),
+                  _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                    _vm._v("设置")
+                  ])
+                ]
+              )
             ],
             1
           )
