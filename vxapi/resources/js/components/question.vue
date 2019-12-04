@@ -128,7 +128,15 @@
                     </el-col>
                     <el-col :span="4">
                         <el-form-item prop="answer">
-                            <el-input v-model="newQuestion.answer" placeholder="请输入答案"></el-input>
+                            <span v-if="activeName=='judge'">
+                                <el-select v-model="newQuestion.answer" placeholder="请选择答案">
+                                    <el-option :value="0"></el-option>
+                                    <el-option :value="1"></el-option>
+                                </el-select>
+                            </span>
+                            <span v-else>
+                                <el-input v-model="newQuestion.answer" placeholder="请输入答案"></el-input>
+                            </span>
                         </el-form-item>
                     </el-col>
                 </el-form>
@@ -149,13 +157,13 @@
     export default {
         data() {
             return {
-                url:'http://www.dutbit.com:8080/control/',
+                url: 'http://www.dutbit.com:8080/control/',
                 activeName: 'choose',
                 tableData: [],
                 drawer: false,
                 direction: "ttb",
                 questionNum: 0,
-                newQuestion: {options: ["错", "对"]},
+                newQuestion: {options: {}},
                 row: [],
                 rules: {
                     question: [
@@ -173,7 +181,7 @@
         methods: {
             handleClick() {
                 var self = this;
-                var url =  this.url + this.activeName;
+                var url = this.url + this.activeName;
                 axios.get(url)
                     .then(function (response) {
                         self.tableData = response.data;
@@ -200,8 +208,11 @@
                 var url = this.url + this.activeName;
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log(this.newQuestion);
-                        axios.post(url, JSON.stringify(this.newQuestion))
+                        if (this.activeName == 'judge') {
+                            self.newQuestion.options = ["错", "对"];
+                        }
+                        console.log(self.newQuestion);
+                        axios.post(url, JSON.stringify(self.newQuestion))
                             .then(function (response) {
                                 console.log(response.data);
                                 alert('添加成功！');

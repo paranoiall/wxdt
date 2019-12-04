@@ -3685,17 +3685,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: 'http://www.dutbit.com:8080/control/',
+      url: 'http://127.0.0.1:8000/control/',
       activeName: 'choose',
       tableData: [],
       drawer: false,
       direction: "ttb",
       questionNum: 0,
       newQuestion: {
-        options: ["错", "对"]
+        options: {}
       },
       row: [],
       rules: {
@@ -3746,8 +3754,12 @@ __webpack_require__.r(__webpack_exports__);
       var url = this.url + this.activeName;
       this.$refs[formName].validate(function (valid) {
         if (valid) {
-          console.log(_this.newQuestion);
-          axios.post(url, JSON.stringify(_this.newQuestion)).then(function (response) {
+          if (_this.activeName == 'judge') {
+            self.newQuestion.options = ["错", "对"];
+          }
+
+          console.log(self.newQuestion);
+          axios.post(url, JSON.stringify(self.newQuestion)).then(function (response) {
             console.log(response.data);
             alert('添加成功！');
             window.location.reload();
@@ -100953,23 +100965,60 @@ var render = function() {
                         "el-col",
                         { attrs: { span: 4 } },
                         [
-                          _c(
-                            "el-form-item",
-                            { attrs: { prop: "answer" } },
-                            [
-                              _c("el-input", {
-                                attrs: { placeholder: "请输入答案" },
-                                model: {
-                                  value: _vm.newQuestion.answer,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.newQuestion, "answer", $$v)
-                                  },
-                                  expression: "newQuestion.answer"
-                                }
-                              })
-                            ],
-                            1
-                          )
+                          _c("el-form-item", { attrs: { prop: "answer" } }, [
+                            _vm.activeName == "judge"
+                              ? _c(
+                                  "span",
+                                  [
+                                    _c(
+                                      "el-select",
+                                      {
+                                        attrs: { placeholder: "请选择答案" },
+                                        model: {
+                                          value: _vm.newQuestion.answer,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.newQuestion,
+                                              "answer",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "newQuestion.answer"
+                                        }
+                                      },
+                                      [
+                                        _c("el-option", {
+                                          attrs: { value: 0 }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("el-option", { attrs: { value: 1 } })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _c(
+                                  "span",
+                                  [
+                                    _c("el-input", {
+                                      attrs: { placeholder: "请输入答案" },
+                                      model: {
+                                        value: _vm.newQuestion.answer,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.newQuestion,
+                                            "answer",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "newQuestion.answer"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                          ])
                         ],
                         1
                       )
