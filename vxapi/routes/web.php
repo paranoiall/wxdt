@@ -23,3 +23,5 @@ Route::get('control/{kind}', 'control@get');
 Route::post('control/{kind}', 'control@post');
 Route::put('control/{kind}', 'control@put');
 Route::delete('control/{kind}', 'control@delete');
+Route::get('setting', 'control@getsetting');
+Route::put('setting', 'control@putsetting');

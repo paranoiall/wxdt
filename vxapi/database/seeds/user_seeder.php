@@ -16,7 +16,8 @@ class user_seeder extends Seeder
                 [
                     'username' => 'admin',
                     'name' => 'root',
-                    'password' =>  Hash::make('admin')
+                    'password' => Hash::make('admin'),
+                    'qnumber' => json_encode(array('choose'=>0, 'mutichoose'=>1, 'fillBlank'=>2, 'judge'=>3))
                 ]
             ]
         );

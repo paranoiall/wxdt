@@ -14,7 +14,7 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">查看结果</span>
                 </el-menu-item>
-                <el-menu-item index="/setting" disabled>
+                <el-menu-item index="/setting">
                     <i class="el-icon-setting"></i>
                     <span slot="title">设置</span>
                 </el-menu-item>
@@ -38,13 +38,13 @@
     }
 </script>
 
-<style>
+<style scoped>
     .el-menu-vertical-demo:not(.el-menu--collapse) {
         width: 70%;
         min-height: 100%;
     }
 
     .aside {
-        width: 20% !important;
+        width: 230px !important;
     }
 </style>

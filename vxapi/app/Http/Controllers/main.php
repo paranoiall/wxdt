@@ -8,6 +8,7 @@ use App\Models\Judge;
 use App\Models\Mutichoose;
 use App\Models\Userdata;
 use Illuminate\Http\Request;
+use App\User;
 use Schema;
 
 class main extends Controller
@@ -28,12 +29,18 @@ class main extends Controller
 
     public function question(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, Userdata $userdata, $userid)
     {
-        $question_number = array(
-            'choose' => json_encode($this->question_number()),
-            'mutichoose' => json_encode($this->question_number()),
-            'fillBlank' => json_encode($this->question_number()),
-            'judge' => json_encode($this->question_number())
-        );
+        $question_id = array('choose' => array(), 'mutichoose' => array(), 'fillBlank' => array(), 'judge' => array());
+        foreach ($choose->select('id')->get()->toArray() as $id)
+            array_push($question_id['choose'], $id['id']);
+        foreach ($mutichoose->select('id')->get()->toArray() as $id)
+            array_push($question_id['mutichoose'], $id['id']);
+        foreach ($fillBlank->select('id')->get()->toArray() as $id)
+            array_push($question_id['fillBlank'], $id['id']);
+        foreach ($judge->select('id')->get()->toArray() as $id)
+            array_push($question_id['judge'], $id['id']);
+        $question_number = json_decode(User::select('qnumber')->where('name', 'root')->get()->toArray()[0]['qnumber'], true);
+        $question_number = $this->question_number($question_id, $question_number);
+
         $userdata->where('userid', $userid)->update($question_number);
 
         foreach ($question_number as $kind => $value) {
@@ -69,7 +76,7 @@ class main extends Controller
             ->where('userid', $userid)
             ->get()
             ->toArray()[0];
-//        dump($question_number);
+
         foreach ($question_number as $key => $value) {
             $value = json_decode($value, true);
             eval('$which=$' . $key . ';');
@@ -81,7 +88,7 @@ class main extends Controller
                     ->toArray()[0]['answer'];
             }
         }
-//        dump($question_answer);
+
         $score_std = array('choose' => 1,
             'mutichoose' => 2,
             'fillBlank' => 3,
@@ -92,8 +99,8 @@ class main extends Controller
         $result['score'] = 0;
         foreach ($answer as $key => $item) {
             foreach ($item as $value) {
-                if($value['index']) {
-                    $index = $value['index']-1;
+                if ($value['index']) {
+                    $index = $value['index'] - 1;
                     $q_answer = $question_answer[$key][$index];
                     if ($key == 'mutichoose') {
                         $q_answer = json_decode($q_answer, true);
@@ -140,11 +147,21 @@ class main extends Controller
         return $result['openid'];
     }
 
-    private function question_number($num = 2, $up = 5, $down = 1)//默认随机题号参数
+    private function question_number($id, $number)//随机题号
     {
-        $source = array();
-        for ($i = $down; $i <= $up; $i++)
-            $source[$i] = null;
-        return array_rand($source, $num);
+        foreach ($id as $key => $value) {
+            if ($number[$key])
+                $result_key[$key] = array_rand($value, $number[$key]);
+        }
+        foreach ($result_key as $key => $value) {
+            if (is_array($value)) {
+                $result[$key] = array();
+                foreach ($value as $id_num) {
+                    array_push($result[$key], $id[$key][$id_num]);
+                }
+            } else $result[$key] = array($id[$key][$value]);
+            $result[$key] = json_encode($result[$key]);
+        }
+        return $result;
     }
 }

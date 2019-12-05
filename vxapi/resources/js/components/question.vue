@@ -185,9 +185,9 @@
                 axios.get(url)
                     .then(function (response) {
                         self.tableData = response.data;
-                        console.log(self.tableData);
                     })
                     .catch(function (error) {
+                        alert("网络错误！");
                         console.log(error);
                     });
             },
@@ -211,14 +211,15 @@
                         if (this.activeName == 'judge') {
                             self.newQuestion.options = ["错", "对"];
                         }
-                        console.log(self.newQuestion);
                         axios.post(url, JSON.stringify(self.newQuestion))
                             .then(function (response) {
-                                console.log(response.data);
-                                alert('添加成功！');
-                                window.location.reload();
+                                if (response.data == 1) {
+                                    alert('添加成功！');
+                                    window.location.reload();
+                                }
                             })
                             .catch(function (error) {
+                                alert("网络错误！");
                                 console.log(error);
                             });
                     }
@@ -243,9 +244,9 @@
                 }
                 axios.put(url, JSON.stringify(senddata))
                     .then(function (response) {
-                        console.log(response.data);
                     })
                     .catch(function (error) {
+                        alert("网络错误！");
                         console.log(error);
                     });
                 this.$set(row, 'isUpdate', false);
@@ -257,11 +258,11 @@
                         this.$set(row, 'isUpdate', false);
                         axios.delete(url, {data: row.id})
                             .then(function (response) {
-                                console.log(response.data);
-                                alert('删除成功！');
-                                tabledata.splice(index, 1);
+                                if (response.data == row.id)
+                                    tabledata.splice(index, 1);
                             })
                             .catch(function (error) {
+                                alert("网络错误！");
                                 console.log(error);
                             });
                     })
@@ -274,13 +275,13 @@
     ;
 </script>
 
-<style>
+<style scoped>
     .header {
         margin: 0px 20% 0px 10% !important;
     }
 
     .main {
-        margin: 0px 5% 0px 0% !important;
+        margin: 0px 9% 1% 0% !important;
     }
 
     .row {
