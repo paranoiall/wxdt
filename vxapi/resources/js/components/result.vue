@@ -1,5 +1,5 @@
 <template>
-<div>result</div>
+<div>result开发中</div>
 </template>
 
 <script>

@@ -3709,8 +3709,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // url: 'http://www.dutbit.com:8080/control/ ',
-      url: 'http://localhost:8000/control/',
+      url: 'http://www.dutbit.com:8080/control/ ',
+      // url: 'http://localhost:8000/control/',
       activeName: 'choose',
       tableData: [],
       drawer: false,
@@ -3927,8 +3927,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // url: 'http://www.dutbit.com:8080/setting',
-      url: 'http://localhost:8000/setting',
+      url: 'http://www.dutbit.com:8080/setting',
+      // url: 'http://localhost:8000/setting',
       setting: [],
       value: 1
     };
@@ -100400,17 +100400,13 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "el-menu-item",
-                { attrs: { index: "/result", disabled: "" } },
-                [
-                  _c("i", { staticClass: "el-icon-menu" }),
-                  _vm._v(" "),
-                  _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                    _vm._v("查看结果")
-                  ])
-                ]
-              ),
+              _c("el-menu-item", { attrs: { index: "/result" } }, [
+                _c("i", { staticClass: "el-icon-menu" }),
+                _vm._v(" "),
+                _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                  _vm._v("查看结果")
+                ])
+              ]),
               _vm._v(" "),
               _c("el-menu-item", { attrs: { index: "/setting" } }, [
                 _c("i", { staticClass: "el-icon-setting" }),
@@ -101322,7 +101318,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("result")])
+  return _c("div", [_vm._v("result开发中")])
 }
 var staticRenderFns = []
 render._withStripped = true
