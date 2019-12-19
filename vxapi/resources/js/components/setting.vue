@@ -47,7 +47,8 @@
     export default {
         data() {
             return {
-                url: 'http://www.dutbit.com:8080/setting',
+                // url: 'http://www.dutbit.com:8080/setting',
+                url: 'http://localhost:8000/setting',
                 setting: [],
                 value: 1,
             }

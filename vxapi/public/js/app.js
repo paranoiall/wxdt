@@ -3693,10 +3693,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: 'http://www.dutbit./control/',
+      // url: 'http://www.dutbit.com:8080/control/ ',
+      url: 'http://localhost:8000/control/',
       activeName: 'choose',
       tableData: [],
       drawer: false,
@@ -3717,7 +3731,8 @@ __webpack_require__.r(__webpack_exports__);
           message: '请输入答案',
           trigger: 'blur'
         }]
-      }
+      },
+      fileList: []
     };
   },
   mounted: function mounted() {
@@ -3742,6 +3757,8 @@ __webpack_require__.r(__webpack_exports__);
           options: {}
         };
         done();
+      })["catch"](function (_) {
+        return;
       });
     },
     buttonClick: function buttonClick(number) {
@@ -3815,6 +3832,19 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (_) {
         return;
       });
+    },
+    filesuccess: function filesuccess() {
+      alert('添加成功！');
+      window.location.reload();
+    },
+    fileerror: function fileerror() {
+      alert('网络错误！');
+    },
+    submitUpload: function submitUpload() {
+      this.$refs.upload.submit();
+    },
+    fileexceed: function fileexceed() {
+      alert('一次只能上传一个文件');
     }
   }
 });
@@ -3897,7 +3927,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: 'http://127.0.0.1:8000/setting',
+      // url: 'http://www.dutbit.com:8080/setting',
+      url: 'http://localhost:8000/setting',
       setting: [],
       value: 1
     };
@@ -10329,7 +10360,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header[data-v-06219a31] {\n    margin: 0px 20% 0px 10% !important;\n}\n.main[data-v-06219a31] {\n    margin: 0px 9% 1% 0% !important;\n}\n.row[data-v-06219a31] {\n    margin: 0 2% !important;\n    height: 90%;\n}\n.row-up[data-v-06219a31] {\n    margin: 0 2% !important;\n    height: 55%;\n}\n.el-form[data-v-06219a31] {\n    width: 100% !important;\n}\n.button[data-v-06219a31] {\n    width: 50% !important;\n}\n", ""]);
+exports.push([module.i, "\n.header[data-v-06219a31] {\n    margin: 0px 20% 0px 10% !important;\n}\n.main[data-v-06219a31] {\n    margin: 0px 9% 1% 0% !important;\n}\n.row[data-v-06219a31] {\n    margin: 0 2% !important;\n    height: 90%;\n}\n.row-up[data-v-06219a31] {\n    margin: 0 2% !important;\n    height: 55%;\n}\n.row-middle[data-v-06219a31] {\n    height: 100%;\n}\n.upload[data-v-06219a31] {\n    margin-top: 5%;\n}\n.el-form[data-v-06219a31] {\n    width: 100% !important;\n}\n.button[data-v-06219a31] {\n    width: 50% !important;\n}\n", ""]);
 
 // exports
 
@@ -100892,7 +100923,7 @@ var render = function() {
                           "el-button",
                           {
                             staticClass: "button",
-                            attrs: { type: "success", disabled: "" },
+                            attrs: { type: "success" },
                             on: {
                               click: function($event) {
                                 return _vm.buttonClick(-1)
@@ -101171,19 +101202,99 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.questionNum == -1
-        ? _c("el-drawer", {
-            attrs: {
-              visible: _vm.drawer,
-              direction: _vm.direction,
-              "before-close": _vm.handleClose,
-              "with-header": false
-            },
-            on: {
-              "update:visible": function($event) {
-                _vm.drawer = $event
+        ? _c(
+            "el-drawer",
+            {
+              attrs: {
+                visible: _vm.drawer,
+                direction: _vm.direction,
+                "before-close": _vm.handleClose,
+                "with-header": false
+              },
+              on: {
+                "update:visible": function($event) {
+                  _vm.drawer = $event
+                }
               }
-            }
-          })
+            },
+            [
+              _c(
+                "el-row",
+                {
+                  staticClass: "row-middle",
+                  attrs: { type: "flex", align: "top" }
+                },
+                [
+                  _c(
+                    "el-col",
+                    { attrs: { offset: 4, span: 16 } },
+                    [
+                      _c(
+                        "el-upload",
+                        {
+                          ref: "upload",
+                          staticClass: "upload",
+                          attrs: {
+                            action: _vm.url,
+                            name: "question",
+                            "file-list": _vm.fileList,
+                            "on-success": _vm.filesuccess,
+                            "on-error": _vm.fileerror,
+                            "auto-upload": false,
+                            limit: 1,
+                            "on-exceed": _vm.fileexceed
+                          }
+                        },
+                        [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { slot: "trigger", type: "primary" },
+                              slot: "trigger"
+                            },
+                            [_vm._v("选择文件")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-button",
+                            {
+                              staticStyle: { "margin-left": "10px" },
+                              attrs: { type: "success" },
+                              on: { click: _vm.submitUpload }
+                            },
+                            [_vm._v("上传")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-link",
+                            {
+                              staticStyle: { "margin-left": "10px" },
+                              attrs: { type: "danger", href: _vm.url + "csv" }
+                            },
+                            [_vm._v("获取样例")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "el-upload__tip",
+                              attrs: { slot: "tip" },
+                              slot: "tip"
+                            },
+                            [_vm._v("只能上传csv或txt文件")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         : _vm._e()
     ],
     1

@@ -96,7 +96,7 @@
                 </el-col>
                 <el-col :span="8">
                     <div>
-                        <el-button class="button" type="success" @click="buttonClick(-1)" disabled>批量添加</el-button>
+                        <el-button class="button" type="success" @click="buttonClick(-1)">批量添加</el-button>
                     </div>
                 </el-col>
             </el-row>
@@ -149,6 +149,19 @@
         </el-drawer>
         <el-drawer v-if="questionNum == -1" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
                    :with-header="false">
+            <el-row class="row-middle" type="flex" align="top">
+                <el-col :offset="4" :span="16">
+                    <el-upload class="upload" ref="upload" :action="url" name="question"
+                               :file-list="fileList"
+                               :on-success="filesuccess" :on-error="fileerror" :auto-upload="false" :limit=1
+                               :on-exceed="fileexceed">
+                        <el-button slot="trigger" type="primary">选择文件</el-button>
+                        <el-button style="margin-left: 10px;" type="success" @click="submitUpload">上传</el-button>
+                        <el-link  style="margin-left: 10px;" type="danger" :href="url+'csv'">获取样例</el-link>
+                        <div slot="tip" class="el-upload__tip">只能上传csv或txt文件</div>
+                    </el-upload>
+                </el-col>
+            </el-row>
         </el-drawer>
     </el-container>
 </template>
@@ -157,7 +170,8 @@
     export default {
         data() {
             return {
-                url: 'http://www.dutbit.com:8080/control/',
+                // url: 'http://www.dutbit.com:8080/control/ ',
+                url: 'http://localhost:8000/control/',
                 activeName: 'choose',
                 tableData: [],
                 drawer: false,
@@ -173,6 +187,7 @@
                         {required: true, message: '请输入答案', trigger: 'blur'}
                     ]
                 },
+                fileList: [],
             };
         },
         mounted: function () {
@@ -198,6 +213,9 @@
                         self.questionNum = 0;
                         self.newQuestion = {options: {}};
                         done();
+                    })
+                    .catch(_ => {
+                        return
                     });
             },
             buttonClick(number) {
@@ -269,7 +287,20 @@
                     .catch(_ => {
                         return
                     });
-            }
+            },
+            filesuccess() {
+                alert('添加成功！');
+                window.location.reload();
+            },
+            fileerror() {
+                alert('网络错误！');
+            },
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
+            fileexceed() {
+                alert('一次只能上传一个文件');
+            },
         }
     }
     ;
@@ -292,6 +323,14 @@
     .row-up {
         margin: 0 2% !important;
         height: 55%;
+    }
+
+    .row-middle {
+        height: 100%;
+    }
+
+    .upload {
+        margin-top: 5%;
     }
 
     .el-form {

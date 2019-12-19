@@ -18,6 +18,7 @@ class CreateFillBlanks extends Migration
             $table->text('question');
             $table->string('answer');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

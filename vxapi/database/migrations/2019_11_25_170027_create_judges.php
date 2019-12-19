@@ -19,6 +19,7 @@ class CreateJudges extends Migration
             $table->string('options');
             $table->integer('answer');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

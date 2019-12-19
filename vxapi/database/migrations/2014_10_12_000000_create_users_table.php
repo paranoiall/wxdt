@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique();
             $table->string('password');
             $table->string('qnumber');
-            $table->rememberToken();
+            $table->string('qfile')->nullable();
+//            $table->rememberToken();
             $table->timestamps();
         });
     }

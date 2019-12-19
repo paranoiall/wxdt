@@ -19,6 +19,7 @@ class CreateChooses extends Migration
             $table->string('options');
             $table->string('answer');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
