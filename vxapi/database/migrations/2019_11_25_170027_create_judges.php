@@ -18,6 +18,8 @@ class CreateJudges extends Migration
             $table->text('question');
             $table->string('options');
             $table->integer('answer');
+            $table->integer('totalnum');
+            $table->integer('rightnum');
             $table->timestamps();
             $table->softDeletes();
         });

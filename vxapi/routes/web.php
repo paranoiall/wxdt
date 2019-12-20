@@ -21,14 +21,15 @@ Route::get('question/{userid}', 'main@question');
 Route::post('answer/{userid}', 'main@answer');
 
 Route::get('control/csv', 'control@csv');
-Route::post('control','control@postFile');
+Route::post('control', 'control@postFile');
 
 Route::get('control/{kind}', 'control@get');
 Route::post('control/{kind}', 'control@post');
 Route::put('control/{kind}', 'control@put');
 Route::delete('control/{kind}', 'control@delete');
+
+Route::get('result', 'control@score');
+Route::get('result/{kind}', 'control@result');
+
 Route::get('setting', 'control@getsetting');
 Route::put('setting', 'control@putsetting');
-
-
-

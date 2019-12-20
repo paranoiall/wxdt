@@ -17,6 +17,8 @@ class CreateFillBlanks extends Migration
             $table->increments('id');
             $table->text('question');
             $table->string('answer');
+            $table->integer('totalnum');
+            $table->integer('rightnum');
             $table->timestamps();
             $table->softDeletes();
         });

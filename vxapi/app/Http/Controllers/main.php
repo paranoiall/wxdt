@@ -19,7 +19,8 @@ class main extends Controller
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
         $code = $_POST['code'];
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' . $appid . '&secret=' . $appsecret . '&js_code=' . $code . '&grant_type=authorization_code';
-        $openid = $this->curl($url);
+//        $openid = $this->curl($url);
+        $openid = $code;
         if ($openid) {
             Userdata::where('userid', $openid)->delete();
             Userdata::create(array('userid' => $openid));
@@ -80,12 +81,14 @@ class main extends Controller
         foreach ($question_number as $key => $value) {
             $value = json_decode($value, true);
             eval('$which=$' . $key . ';');
-            foreach ($value as $q_number => $q_id) {
-                $question_answer[$key][$q_number] = $which
-                    ->select('answer')
-                    ->where('id', $q_id)
-                    ->get()
-                    ->toArray()[0]['answer'];
+            if ($value) {
+                foreach ($value as $q_number => $q_id) {
+                    $question_answer[$key][$q_number] = $which
+                        ->select('answer')
+                        ->where('id', $q_id)
+                        ->get()
+                        ->toArray()[0]['answer'];
+                }
             }
         }
 
@@ -120,12 +123,29 @@ class main extends Controller
             }
         }
 
-        $result = json_encode($result);
+        foreach ($question_number as $key => $value) {
+            $value = json_decode($value, true);
+            eval('$which=$' . $key . ';');
+            if ($value) {
+                foreach ($value as $index => $q_id) {
+                    $number = $which->select('totalnum', 'rightnum')
+                        ->where('id', $q_id)
+                        ->get()
+                        ->toArray()[0];
+                    $number['totalnum']++;
+                    if ($result[$key][$index])
+                        $number['rightnum']++;
+                    $which->where('id', $q_id)->update($number);
+                }
+            }
+        }
+
         $userdata->where('userid', $userid)->update(array(
+            'score' => $result['score'],
             'answer' => json_encode($answer),
-            'result' => $result
+            'result' => json_encode($result)
         ));
-        return $result;
+        return json_encode($result);
     }
 
     public function curl($url)

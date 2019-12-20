@@ -20,6 +20,8 @@ class judge_seeder extends Seeder
                         array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -28,6 +30,8 @@ class judge_seeder extends Seeder
                         array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -36,6 +40,8 @@ class judge_seeder extends Seeder
                         array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -44,6 +50,8 @@ class judge_seeder extends Seeder
                         array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -52,6 +60,8 @@ class judge_seeder extends Seeder
                         array('key' => '1', 'value' => '对')
                     )),
                     'answer' => 1,
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ]
             ]
         );

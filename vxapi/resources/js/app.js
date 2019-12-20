@@ -22,8 +22,10 @@ import router from './routes.js';
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VCharts from 'v-charts';
 
 Vue.use(ElementUI);
+Vue.use(VCharts);
 
 
 // const files = require.context('./', true, /\.vue$/i)
@@ -37,7 +39,7 @@ Vue.use(ElementUI);
 //
 
 const my_app = new Vue({
-    el:'#my_app',
+    el: '#my_app',
     router,
     render: h => h(myApp)
 });

@@ -21,7 +21,9 @@ class mutichoose_seeder extends Seeder
                         array('key' => 'c', 'value' => 'qc'),
                         array('key' => 'd', 'value' => 'qd')
                     )),
-                    'answer' => json_encode(array('a', 'b'))
+                    'answer' => json_encode(array('a', 'b')),
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -31,7 +33,9 @@ class mutichoose_seeder extends Seeder
                         array('key' => 'c', 'value' => 'qc'),
                         array('key' => 'd', 'value' => 'qd')
                     )),
-                    'answer' => json_encode(array('a', 'b'))
+                    'answer' => json_encode(array('a', 'b')),
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -41,7 +45,9 @@ class mutichoose_seeder extends Seeder
                         array('key' => 'c', 'value' => 'qc'),
                         array('key' => 'd', 'value' => 'qd')
                     )),
-                    'answer' => json_encode(array('a', 'b'))
+                    'answer' => json_encode(array('a', 'b')),
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -51,7 +57,9 @@ class mutichoose_seeder extends Seeder
                         array('key' => 'c', 'value' => 'qc'),
                         array('key' => 'd', 'value' => 'qd')
                     )),
-                    'answer' => json_encode(array('a', 'b'))
+                    'answer' => json_encode(array('a', 'b')),
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
@@ -61,7 +69,9 @@ class mutichoose_seeder extends Seeder
                         array('key' => 'c', 'value' => 'qc'),
                         array('key' => 'd', 'value' => 'qd')
                     )),
-                    'answer' => json_encode(array('a', 'b'))
+                    'answer' => json_encode(array('a', 'b')),
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ]
             ]
         );

@@ -23,8 +23,12 @@
         <el-main>
             <router-view/>
         </el-main>
+        <div class="divider">
+            <el-divider>
+                <h6>From Bit Studio, 2019</h6>
+            </el-divider>
+        </div>
     </el-container>
-
 </template>
 
 <script>
@@ -32,7 +36,7 @@
         data() {
             return {
                 defaultindex: this.$route.path,
-                isCollapse: false
+                isCollapse: true
             };
         },
     }
@@ -46,5 +50,15 @@
 
     .aside {
         width: 230px !important;
+    }
+
+    .divider {
+        position: absolute;
+        width: 100%;
+        top: 850px;
+    }
+
+    h6 {
+        color: #AAA;
     }
 </style>

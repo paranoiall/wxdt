@@ -43,7 +43,8 @@ class control extends Controller
             }
             $result['options'] = json_encode($options);
         }
-
+        $result['totalnum'] = 0;
+        $result['rightnum'] = 0;
         eval('$which=$' . $kind . ';');
         $which->create($result);
         return 1;
@@ -76,10 +77,14 @@ class control extends Controller
         return $id;
     }
 
-    public function getsetting()
+    public function getsetting(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge)
     {
-        $data = User::select('qnumber')->where('name', 'root')->get()->toArray()[0];
-        return json_encode($data['qnumber']);
+        $data = array('maxnum' => array('choose' => $choose->count(),
+            'mutichoose' => $mutichoose->count(),
+            'judge' => $judge->count(),
+            'fillBlank' => $fillBlank->count()),
+            'now' => json_decode(User::select('qnumber')->where('name', 'root')->get()->toArray()[0]['qnumber'], true));
+        return $data;
     }
 
     public function putsetting(Request $request)
@@ -146,13 +151,34 @@ class control extends Controller
                     default:
                         return 'fillBlank';
                 }
+                $question['totalnum'] = 0;
+                $question['rightnum'] = 0;
                 $which->create($question);
             }
         }
-        return json_encode($data);
+        return 1;
     }
 
-    public function csv(){
+    public function csv()
+    {
         return response()->download(storage_path('app/vxdt_example.csv'));
+    }
+
+    public function result(Choose $choose, Mutichoose $mutichoose, FillBlank $fillBlank, Judge $judge, $kind)
+    {
+        eval('$which=$' . $kind . ';');
+        $result = $which->select('id', 'totalnum', 'rightnum')->get()->toArray();
+        foreach ($result as $num => $value) {
+            $result[$num]['rate'] = $value['totalnum'] ? $value['rightnum'] / $value['totalnum'] : 0;
+        }
+        return $result;
+    }
+
+    public function score(Userdata $userdata)
+    {
+        $data = $userdata->select('choose', 'mutichoose', 'fillBlank', 'judge', 'score', 'result', 'updated_at')
+            ->orderBy('score', 'desc')->take(10)
+            ->get()->toArray();
+        return $data;
     }
 }

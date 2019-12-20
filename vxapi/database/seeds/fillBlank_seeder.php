@@ -15,23 +15,33 @@ class fillBlank_seeder extends Seeder
             [
                 [
                     'question' => 'q',
-                    'answer' => 'a'
+                    'answer' => 'a',
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
-                    'answer' => 'a'
+                    'answer' => 'a',
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
-                    'answer' => 'a'
+                    'answer' => 'a',
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
-                    'answer' => 'a'
+                    'answer' => 'a',
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ],
                 [
                     'question' => 'q',
-                    'answer' => 'a'
+                    'answer' => 'a',
+                    'totalnum' => 0,
+                    'rightnum' => 0
                 ]
             ]
         );

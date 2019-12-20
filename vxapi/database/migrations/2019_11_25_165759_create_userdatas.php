@@ -21,6 +21,7 @@ class CreateUserdatas extends Migration
             $table->string('fillblank')->nullable();
             $table->string('judge')->nullable();
             $table->text('answer')->nullable();
+            $table->text('score')->nullable();
             $table->text('result')->nullable();
             $table->timestamps();
             $table->softDeletes();

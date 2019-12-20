@@ -18,6 +18,8 @@ class CreateMutichooses extends Migration
             $table->text('question');
             $table->string('options');
             $table->string('answer');
+            $table->integer('totalnum');
+            $table->integer('rightnum');
             $table->timestamps();
             $table->softDeletes();
         });

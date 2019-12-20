@@ -9,9 +9,9 @@
             </el-tabs>
         </el-header>
         <el-main class="main">
-            <el-table :data="tableData" max-height="300px" stripe border>
-                <el-table-column fixed prop="id" label="题号" width="70%"></el-table-column>
-                <el-table-column prop="question" label="题目" width="400%">
+            <el-table :data="tableData" max-height="500px" stripe border>
+                <el-table-column fixed prop="id" label="题号" width="100%"></el-table-column>
+                <el-table-column prop="question" label="题目" width="600%">
                     <template slot-scope="scope">
                         <span v-if="scope.row.isUpdate">
                             <el-input v-model="scope.row.question" placeholder="请输入内容"></el-input>
@@ -55,7 +55,8 @@
                         <span v-else>{{ scope.row.d }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="answer" label="答案" width="200%">
+
+                <el-table-column prop="answer" label="答案" width="400%">
                     <template slot-scope="scope">
                         <span v-if="scope.row.isUpdate">
                             <el-input v-model="scope.row.answer" placeholder="请输入内容"></el-input>
@@ -63,6 +64,7 @@
                         <span v-else>{{ scope.row.answer }}</span>
                     </template>
                 </el-table-column>
+
                 <el-table-column fixed="right" label="操作" width="110%">
                     <template slot-scope="scope">
                         <span v-if="scope.row.isUpdate">
@@ -128,10 +130,18 @@
                     </el-col>
                     <el-col :span="4">
                         <el-form-item prop="answer">
-                            <span v-if="activeName=='judge'">
+                            <span v-if="activeName=='choose'">
                                 <el-select v-model="newQuestion.answer" placeholder="请选择答案">
-                                    <el-option :value="0"></el-option>
-                                    <el-option :value="1"></el-option>
+                                    <el-option value="A"></el-option>
+                                    <el-option value="B"></el-option>
+                                    <el-option value="C"></el-option>
+                                    <el-option value="D"></el-option>
+                                </el-select>
+                            </span>
+                            <span v-else-if="activeName=='judge'">
+                                <el-select v-model="newQuestion.answer" placeholder="请选择答案">
+                                    <el-option value="0"></el-option>
+                                    <el-option value="1"></el-option>
                                 </el-select>
                             </span>
                             <span v-else>
@@ -157,7 +167,7 @@
                                :on-exceed="fileexceed">
                         <el-button slot="trigger" type="primary">选择文件</el-button>
                         <el-button style="margin-left: 10px;" type="success" @click="submitUpload">上传</el-button>
-                        <el-link  style="margin-left: 10px;" type="danger" :href="url+'csv'">获取样例</el-link>
+                        <el-link style="margin-left: 10px;" type="danger" :href="url+'csv'">获取样例</el-link>
                         <div slot="tip" class="el-upload__tip">只能上传csv或txt文件</div>
                     </el-upload>
                 </el-col>
