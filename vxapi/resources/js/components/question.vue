@@ -132,10 +132,10 @@
                         <el-form-item prop="answer">
                             <span v-if="activeName=='choose'">
                                 <el-select v-model="newQuestion.answer" placeholder="请选择答案">
-                                    <el-option value="A"></el-option>
-                                    <el-option value="B"></el-option>
-                                    <el-option value="C"></el-option>
-                                    <el-option value="D"></el-option>
+                                    <el-option value="a"></el-option>
+                                    <el-option value="b"></el-option>
+                                    <el-option value="c"></el-option>
+                                    <el-option value="d"></el-option>
                                 </el-select>
                             </span>
                             <span v-else-if="activeName=='judge'">

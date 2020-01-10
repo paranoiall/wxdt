@@ -19,8 +19,8 @@ class main extends Controller
         $appsecret = '1bf0b2c55b9676074b824164c0ad5b57';
         $code = $_POST['code'];
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' . $appid . '&secret=' . $appsecret . '&js_code=' . $code . '&grant_type=authorization_code';
-//        $openid = $this->curl($url);
-        $openid = $code;
+        $openid = $this->curl($url);
+//        $openid = $code;
         if ($openid) {
             Userdata::where('userid', $openid)->delete();
             Userdata::create(array('userid' => $openid));
