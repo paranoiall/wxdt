@@ -6,6 +6,6 @@
 </head>
 <body>
 <div id="my_app"></div>
-<script src="{{ mix('/laravel/wxdt/vxapi/js/app.js') }}"></script>
+<script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
