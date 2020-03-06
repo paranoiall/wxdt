@@ -51,7 +51,7 @@
         data() {
             return {
                 url: 'http://wxdt.dutbit.com/setting/',
-                // url: 'http://localhost:8000/setting',
+                // url: 'http://127.0.0.1:8000/setting',
                 setting: {now: {}, maxnum: {}},
                 value: 1,
             }

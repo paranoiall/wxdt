@@ -181,7 +181,7 @@
         data() {
             return {
                 url: 'http://wxdt.dutbit.com/control/',
-                // url: 'http://localhost:8000/control/',
+                // url: 'http://127.0.0.1:8000/control/',
                 activeName: 'choose',
                 tableData: [],
                 drawer: false,

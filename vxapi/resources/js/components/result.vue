@@ -65,7 +65,7 @@
             };
             return {
                 url: 'http://wxdt.dutbit.com/result/',
-                // url: 'http://localhost:8000/result/',
+                // url: 'http://127.0.0.1:8000/result/',
                 activeName: 'choose',
                 chartData: {
                     columns: ['id', 'totalnum', 'rightnum', 'rate'],
