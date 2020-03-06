@@ -50,7 +50,7 @@
     export default {
         data() {
             return {
-                url: 'https://www.dutbit.com/laravel/wxdt/vxapi/public/index.php/setting/',
+                url: 'http://www.dutbit.com:8080/setting/',
                 // url: 'http://localhost:8000/setting',
                 setting: {now: {}, maxnum: {}},
                 value: 1,
