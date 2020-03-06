@@ -50,7 +50,7 @@
     export default {
         data() {
             return {
-                url: 'http://www.dutbit.com:8080/setting/',
+                url: 'http://wxdt.dutbit.com/setting/',
                 // url: 'http://localhost:8000/setting',
                 setting: {now: {}, maxnum: {}},
                 value: 1,

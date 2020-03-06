@@ -64,7 +64,7 @@
                 yAxisName: ['数量', '比率']
             };
             return {
-                url: 'http://www.dutbit.com:8080/result/',
+                url: 'http://wxdt.dutbit.com/result/',
                 // url: 'http://localhost:8000/result/',
                 activeName: 'choose',
                 chartData: {

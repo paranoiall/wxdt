@@ -180,7 +180,7 @@
     export default {
         data() {
             return {
-                url: 'http://www.dutbit.com:8080/control/',
+                url: 'http://wxdt.dutbit.com/control/',
                 // url: 'http://localhost:8000/control/',
                 activeName: 'choose',
                 tableData: [],
